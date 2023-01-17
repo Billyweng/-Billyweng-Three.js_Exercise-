@@ -1,0 +1,226 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.8.19",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0,
+                1
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "object_1",
+            "scale" : [
+                0.020849160850048065,
+                0.020849160850048065,
+                0.020849160850048065
+            ],
+            "translation" : [
+                -0.0022385921329259872,
+                0.3548562526702881,
+                0.22642946243286133
+            ]
+        },
+        {
+            "mesh" : 1,
+            "name" : "object_2",
+            "scale" : [
+                0.020849160850048065,
+                0.020849160850048065,
+                0.020849160850048065
+            ],
+            "translation" : [
+                -0.0022385921329259872,
+                0.3548562526702881,
+                0.22642946243286133
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "Default OBJ",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 0
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.5
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "object_1",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "object_2",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 4,
+                        "NORMAL" : 5,
+                        "TEXCOORD_0" : 6
+                    },
+                    "indices" : 7,
+                    "material" : 0
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "sampler" : 0,
+            "source" : 0
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "metal",
+            "uri" : "metal.jpg"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 4823,
+            "max" : [
+                55.45000076293945,
+                11.5,
+                45.09083557128906
+            ],
+            "min" : [
+                -55.45000076293945,
+                -4.600000381469727,
+                -65.69083404541016
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 4823,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 4823,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 11700,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 7894,
+            "max" : [
+                60,
+                16.5,
+                49.70000076293945
+            ],
+            "min" : [
+                -60,
+                -16.5,
+                -70.30000305175781
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5126,
+            "count" : 7894,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5126,
+            "count" : 7894,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5123,
+            "count" : 16002,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 57876,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 57876,
+            "byteOffset" : 57876
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 38584,
+            "byteOffset" : 115752
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 23400,
+            "byteOffset" : 154336
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 94728,
+            "byteOffset" : 177736
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 94728,
+            "byteOffset" : 272464
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 63152,
+            "byteOffset" : 367192
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 32004,
+            "byteOffset" : 430344
+        }
+    ],
+    "samplers" : [
+        {
+            "magFilter" : 9729,
+            "minFilter" : 9987
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 462348,
+            "uri" : "gearbox2.bin"
+        }
+    ]
+}
