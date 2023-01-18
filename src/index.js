@@ -47,81 +47,24 @@ import{ TransformControls} from 'three/examples/jsm/controls/TransformControls';
       camera.rotation.set(-0.60,0,0);
       
       /* -----------------------------------------------------增加光源 AmbientLight 平行光---------------------------- */
-      const light = new THREE.AmbientLight("rgb(255, 255, 255)", 0.4); // soft white light
-      scene.add( light );
-        
-      var directionaLight =new THREE.DirectionalLight (0xffffff,0.8);
-      directionaLight.position.set(0,1,0);
-      scene.add(directionaLight);
-
-      var directionaLight2 =new THREE.DirectionalLight (0xffffff,0.9);
-      directionaLight2.position.set(0.6,0,0.8);
-      scene.add(directionaLight2);
-    
-      var directionaLight3 =new THREE.DirectionalLight (0xffffff,0.9);
-      directionaLight3.position.set(-0.6,0,-0.8);
-      scene.add(directionaLight3);
-     
+      
+      renderer.physicallyCorrectLights = true ;
+      
     
       /* ------------------------------------------------------------load model--------------------------------------------- */
       
-        const textureload=new TextureLoader();
-        const texturemap=textureload.load('../static/textures/BG2.jpg');
-
-        const metalmap=textureload.load('../static/model/metal.jpg');
-
-
-
-        const Loader = new GLTFLoader(); 
-      /* 導入GLB檔案格式 */
-      Loader.load( '../static/model/gearbox.glb', function ( gltf ) {
-       
-        /* 宣告一個材質球 */
-        const Material = new THREE.MeshStandardMaterial({
-            color:'white',
-            roughness: 0.001,
-            metalness: 0.5,
-            /* roughnessMap:metalmap,  */
-            metalnessMap:metalmap,
-            envMap:texturemap ,
-            envMapIntensity: 3
-        });
-       
-
-        let model = gltf.scene;
-       
-
-        var el = document.querySelector(".btn");
+      
+      const UR3Loader = new GLTFLoader();
+      
+      UR3Loader.load('../static/model/hand.gltf',function(UR3gltf){
+        let UR3model =UR3gltf.scene;
+        scene.add(UR3model);
         
-        /* 按鈕旋轉 */
-        el.onclick = function(){
-        console.log("被按了");
-        model.rotation.x = model.rotation.x+1;
-        
-    }
-    
-        /* model.rotation.x = RotationAngleX;
-        model.rotation.y = RotationAngleY;
-        model.rotation.z = RotationAngleZ; */
-
-        /* 設定材質球到導入物件上 */
-        model.traverse((child, i) => {
-              if (child.isMesh) {
-                child.material = Material;
-                child.material.side = THREE.DoubleSide;
-              }
-            });
-
-           /* 物件導入到場景 */
-            scene.add( model );
-
-  
-       
-
       }, undefined, function ( error ) {
-	    console.error( error );
+        console.error( error );
       });
-
+      
+      
 
     
      /* -------------------------------------------------------------格線----------------------------------------------- */
