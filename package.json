@@ -7,8 +7,7 @@
     "build": "webpack --config webpack.config.js",
     "start": "webpack-dev-server --mode development",
     "format": "prettier --write '**/*.js'",
-    "dev":"webpack-dev-server --open --port 80 --hot --host 192.168.123.20"
-    
+    "dev": "webpack-dev-server --https --open --port 443 --hot --host 192.168.123.20"
   },
   "keywords": [],
   "author": "",
