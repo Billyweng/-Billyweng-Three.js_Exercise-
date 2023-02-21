@@ -10,6 +10,8 @@ let container;
 let camera, scene, renderer;
 let reticle;
 let controller;
+var mixer;
+
 
 init();
 animate();
@@ -72,6 +74,10 @@ function addReticleToScene() {
 
 
 
+
+let UR3model;
+
+
 function onSelect() {
   if (reticle.visible) {
     // cone added at the point of a hit test
@@ -79,14 +85,18 @@ function onSelect() {
 
     const UR3Loader = new GLTFLoader();
 
+
     UR3Loader.load('../static/model/hand.gltf', function (UR3gltf) {
 
-      let UR3model = UR3gltf.scene;
-
+      UR3model = UR3gltf.scene;
       scene.add(UR3model);
 
       UR3model.position.setFromMatrixPosition(reticle.matrix);
+      let mixer = new THREE.AnimationMixer(UR3gltf.scene);
+      const action = mixer.clipAction(UR3gltf.animations[0]);
+      action.play();
 
+      console.log(action);
 
       console.log(UR3model);
     }, undefined, function (error) {
@@ -116,9 +126,13 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
+const clock = new THREE.Clock();
+
 function animate() {
   renderer.setAnimationLoop(render);
 }
+
+
 
 // read more about hit testing here:
 // https://github.com/immersive-web/hit-test/blob/master/hit-testing-explainer.md
@@ -186,6 +200,7 @@ function render(timestamp, frame) {
       } else {
         reticle.visible = false;
       }
+
     }
 
     renderer.render(scene, camera);
