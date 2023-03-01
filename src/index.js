@@ -2,26 +2,35 @@ import * as THREE from 'three'
 import { WEBGL } from './webgl'
 import './modal'
 import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoader'
-import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls'
-import { OrbitControls, PrbitControls } from '../node_modules/three/examples/jsm/controls/OrbitControls'
+
 import { ARButton } from 'three/examples/jsm/webxr/ARButton'
-import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
+import { LoopOnce } from 'three';
 
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  let mixer;
+  let action0;
+  let action1;
+
+
   const initialize = async () => {
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera();
 
     const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
     scene.add(light);
 
+
+    /* -------------------------------------做標點顯示圖標----------------------------------------------------- */
     const reticleGeometry = new THREE.RingGeometry(0.15, 0.2, 32).rotateX(- Math.PI / 2);
     const reticleMaterial = new THREE.MeshBasicMaterial();
     const reticle = new THREE.Mesh(reticleGeometry, reticleMaterial);
     reticle.matrixAutoUpdate = false;
     reticle.visible = false;
     scene.add(reticle);
+    /*-------------------------------------------------------------------------------------------------------  */
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -34,33 +43,106 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const controller = renderer.xr.getController(0);
     scene.add(controller);
-    controller.addEventListener('select', () => {
 
+
+    /*  */
+
+    /*  */
+
+    let ur3model = false;
+
+    controller.addEventListener('select', () => {
+      if (ur3model) return;
+      ur3model = true;
+
+
+      let mixer;
+      const clock = new THREE.Clock();
       const ur3Loader = new GLTFLoader();
       ur3Loader.load('../static/model/hand.gltf', function (ur3gltf) {
-        let ur3model = ur3gltf.scene;
+        const ur3model = ur3gltf.scene;
+        ur3model.position.setFromMatrixPosition(reticle.matrix);
         scene.add(ur3model);
 
 
         console.log(ur3gltf);
-        const mixer = new THREE.AnimationMixer(ur3gltf);
-        const action = mixer.clipAction(ur3gltf.animations[0]);
-        action.play();
+        /*  */
+
+        mixer = new THREE.AnimationMixer(ur3model);
+        action0 = mixer.clipAction(ur3gltf.animations[0]);
+        action0.setLoop(THREE.LoopOnce);
+        action0.clampWhenFinished = true;
+
+        action1 = mixer.clipAction(ur3gltf.animations[1]);
+        action1.setLoop(THREE.LoopRepeat);
+
+
+        action1.play();
+
+
+
+
+        let isAnimation0Playing = false;
+        let isAnimation1Playing = false;
+
+        // 綁定按鈕的點擊事件
+        document.getElementById('playAnimation0').addEventListener('click', () => {
+          isAnimation0Playing = !isAnimation0Playing; // 切換動畫狀態
+          if (isAnimation0Playing) {
+            // 如果要播放動畫0
+            mixer.stopAllAction(); // 停止所有動畫
+            const action = mixer.clipAction(ur3gltf.animations[0]);
+            action.setLoop(THREE.LoopOnce);
+            action.clampWhenFinished = true;
+            action.play(); // 播放動畫0
+            isAnimation1Playing = false; // 確保另一個動畫不在播放
+          } else {
+            // 如果要停止播放動畫0
+            mixer.stopAllAction(); // 停止所有動畫
+          }
+        });
+
+        document.getElementById('playAnimation1').addEventListener('click', () => {
+          isAnimation1Playing = !isAnimation1Playing; // 切換動畫狀態
+          if (isAnimation1Playing) {
+            // 如果要播放動畫1
+            mixer.stopAllAction(); // 停止所有動畫
+            const action = mixer.clipAction(ur3gltf.animations[1]);
+            action.setLoop(THREE.LoopRepeat);
+            action.play(); // 播放動畫1
+            isAnimation0Playing = false; // 確保另一個動畫不在播放
+          } else {
+            // 如果要停止播放動畫1
+            mixer.stopAllAction(); // 停止所有動畫
+          }
+        });
+
+
+        animate();
+
+
+
       }, undefined, function (error) {
         console.error(error);
       });
-      /* const geometry = new THREE.BoxGeometry(0.06, 0.06, 0.06);
-      const material = new THREE.MeshBasicMaterial({ color: 0xffffff * Math.random() });
-      const mesh = new THREE.Mesh(geometry, material);
-      mesh.position.setFromMatrixPosition(reticle.matrix);
-      mesh.scale.y = Math.random() * 2 + 1;
-      scene.add(mesh); */
+
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        const delta = clock.getDelta();
+        mixer.update(delta);
+      };
+
+      /* --------------------------------------------------------------------------------------------------------------------- */
 
 
 
     });
 
     /* ----------------------------------------------------------------------------------------- */
+
+
 
     /* --------------------------------------------------------------------------------------------- */
 
@@ -71,12 +153,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const viewerReferenceSpace = await session.requestReferenceSpace("viewer");
       const hitTestSource = await session.requestHitTestSource({ space: viewerReferenceSpace });
 
+
       renderer.setAnimationLoop((timestamp, frame) => {
         if (!frame) return;
 
         const hitTestResults = frame.getHitTestResults(hitTestSource);
 
         if (hitTestResults.length) {
+
+
           const hit = hitTestResults[0];
           const referenceSpace = renderer.xr.getReferenceSpace(); // ARButton requested 'local' reference space
           const hitPose = hit.getPose(referenceSpace);
@@ -86,6 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           reticle.visible = false;
         }
+
+
 
         renderer.render(scene, camera);
       });
@@ -99,3 +186,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initialize();
 });
+
+
+
+
+
+
+
+
+
