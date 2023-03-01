@@ -4,7 +4,7 @@ import './modal'
 import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoader'
 
 import { ARButton } from 'three/examples/jsm/webxr/ARButton'
-import { LoopOnce } from 'three';
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -115,6 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // 如果要停止播放動畫1
             mixer.stopAllAction(); // 停止所有動畫
           }
+        });
+
+        document.getElementById('playAnimation2').addEventListener('click', () => {
+          mixer.stopAllAction();
         });
 
 

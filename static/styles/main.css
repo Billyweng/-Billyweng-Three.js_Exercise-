@@ -7,10 +7,9 @@ body {
 }
 
 body {
-  width: 100%;
-  height: 100%;
+
   font-family: monospace;
-  /*  display: flex; */
+  display: flex;
   font-size: 1.3rem;
   font-weight: normal;
   background: rgb(75, 83, 116);
@@ -21,11 +20,32 @@ body {
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: flex-end;
   align-items: flex-end;
+  margin: 0 5% 5% 0;
+
+
+}
+
+#playAnimation0,
+#playAnimation1,
+#playAnimation2 {
+  width: 85px;
+  padding: 1rem 0 1rem 0;
+  margin: 1rem;
+  z-index: 2;
+  border-radius: 1rem;
+  background-color: transparent;
+  border: solid 1px rgb(255, 255, 255);
+  color: white;
+}
+
+button {
+  display: block;
 }
 
 canvas {
   display: block;
+  z-index: 1;
 }
