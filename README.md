@@ -6,6 +6,11 @@ Great and easy way to bootstrap your Three.JS project.
 
 
 
+骨架資訊在src/indexjs 裡面 第72行開始到87
+(80到87的值可以調整旋轉角度，但Y軸和Z軸是不建議調整的 模型會錯誤的扭曲變形)
+
+
+
 下載後    npm i
 然後執行  npm run dev
 
