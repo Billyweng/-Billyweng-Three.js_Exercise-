@@ -108,33 +108,33 @@ function initializeAR() {
 
       // 綁定按鈕的點擊事件
       document.getElementById('playAnimation0').addEventListener('click', () => {
-        isAnimation0Playing = !isAnimation0Playing; // 切換動畫狀態
+        isAnimation0Playing = !isAnimation0Playing;
         if (isAnimation0Playing) {
-          // 如果要播放動畫0
-          mixer.stopAllAction(); // 停止所有動畫
+
+          mixer.stopAllAction();
           const action = mixer.clipAction(ur3gltf.animations[0]);
           action.setLoop(THREE.LoopOnce);
           action.clampWhenFinished = true;
-          action.play(); // 播放動畫0
-          isAnimation1Playing = false; // 確保另一個動畫不在播放
+          action.play();
+          isAnimation1Playing = false;
         } else {
-          // 如果要停止播放動畫0
-          mixer.stopAllAction(); // 停止所有動畫
+
+          mixer.stopAllAction();
         }
       });
 
       document.getElementById('playAnimation1').addEventListener('click', () => {
-        isAnimation1Playing = !isAnimation1Playing; // 切換動畫狀態
+        isAnimation1Playing = !isAnimation1Playing;
         if (isAnimation1Playing) {
-          // 如果要播放動畫1
-          mixer.stopAllAction(); // 停止所有動畫
+
+          mixer.stopAllAction();
           const action = mixer.clipAction(ur3gltf.animations[1]);
           action.setLoop(THREE.LoopRepeat);
-          action.play(); // 播放動畫1
-          isAnimation0Playing = false; // 確保另一個動畫不在播放
+          action.play();
+          isAnimation0Playing = false;
         } else {
-          // 如果要停止播放動畫1
-          mixer.stopAllAction(); // 停止所有動畫
+
+          mixer.stopAllAction();
         }
       });
 
@@ -188,7 +188,7 @@ function initializeAR() {
 
 
         const hit = hitTestResults[0];
-        const referenceSpace = renderer.xr.getReferenceSpace(); // ARButton requested 'local' reference space
+        const referenceSpace = renderer.xr.getReferenceSpace();
         const hitPose = hit.getPose(referenceSpace);
 
         reticle.visible = true;
